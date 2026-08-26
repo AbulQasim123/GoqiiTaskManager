@@ -1,742 +1,493 @@
 # GOQii Task Manager
 
-A full-stack Task Management application built as **two equivalent implementations** for practical/interview evaluation:
-
-1. **PERN** — Node.js + Express.js + PostgreSQL + React
-2. **PHPWithReact** — Laravel 12 + PHP + React + Vite
-
-The repository is intentionally structured to demonstrate the same business problem using two different backend technologies.
-
-## Repository
-
-GitHub: https://github.com/AbulQasim123/GoqiiTaskManager
+> **Full-Stack Task Management Application** — Built as a practical assessment for GOQii. This repository contains **two independent implementations** of the same Task Manager system, demonstrating proficiency across multiple backend technologies while maintaining a consistent React frontend.
 
 ---
 
-# 1. PERN — Node.js + Express + PostgreSQL + React
+## 📋 Table of Contents
+
+- [Overview](#overview)
+- [Project 1: PERN Stack](#-project-1-pern-stack--nodejs--express--postgresql)
+- [Project 2: PHP with React](#-project-2-phpwithreact--laravel-12--mysql)
+- [Common Features](#-common-features-across-both-projects)
+- [Interview Talking Points](#-interview-talking-points)
+- [Getting Started](#-getting-started)
+- [API Documentation](#-api-documentation)
+- [Database Schema](#-database-schema)
+- [Project Structure](#-project-structure)
+- [Author](#-author)
+
+---
 
 ## Overview
 
-The PERN implementation provides a RESTful Task Manager with authentication, authorization, task CRUD operations, filtering/pagination, password reset, audit logging, and an admin dashboard.
+This monorepo showcases a **Task Management System** with **Role-Based Access Control (RBAC)** implemented using two different backend architectures:
+
+| Aspect | PERN Stack | PHPWithReact (Laravel) |
+|--------|-----------|------------------------|
+| **Backend** | Node.js + Express | Laravel 12 (PHP) |
+| **Database** | PostgreSQL | MySQL |
+| **ORM** | Sequelize | Eloquent (Laravel ORM) |
+| **Auth** | JWT (jsonwebtoken) | JWT (php-open-source-saver/jwt-auth) |
+| **Frontend** | React 18 + Vite + Bootstrap 5 | React 18 + Vite + Bootstrap 5 |
+| **Extra Features** | Audit Logging, Password Reset, Email Notifications | Dashboard Stats, CORS Middleware |
+
+> **Why two implementations?** To demonstrate backend versatility — the ability to architect the same system using both **JavaScript/Node.js** and **PHP/Laravel** ecosystems, with identical frontend consumption patterns.
+
+---
+
+## 🔷 Project 1: PERN Stack — Node.js + Express + PostgreSQL
 
 ### Tech Stack
 
-**Backend**
-- Node.js 18+
-- Express.js
-- PostgreSQL
-- Sequelize ORM
-- JWT authentication
-- bcryptjs for password hashing
-- Nodemailer + EJS for password-reset emails
-- Zod for request validation
-- Helmet for HTTP security headers
-- CORS
-- express-rate-limit
-- Morgan
-- UUID
+#### Backend
+| Technology | Purpose |
+|-----------|---------|
+| **Node.js** | Runtime environment |
+| **Express.js** | REST API framework |
+| **PostgreSQL** | Relational database |
+| **Sequelize** | ORM for database operations |
+| **JWT** | Stateless authentication |
+| **bcryptjs** | Password hashing |
+| **Nodemailer** | Email service (password reset) |
+| **EJS** | Email template engine |
+| **Zod** | Input validation & schema parsing |
+| **Helmet** | Security headers |
+| **Morgan** | HTTP request logging |
+| **express-rate-limit** | API rate limiting |
+| **CORS** | Cross-origin resource sharing |
 
-**Frontend**
-- React 19
-- Vite
-- React Router
-- Axios
-- Bootstrap 5
-- Bootstrap Icons
-- React Hook Form
-- Yup
+#### Frontend
+| Technology | Purpose |
+|-----------|---------|
+| **React 18** | UI library |
+| **Vite** | Build tool & dev server |
+| **React Router DOM** | Client-side routing |
+| **Axios** | HTTP client |
+| **Bootstrap 5** | CSS framework |
+| **Bootstrap Icons** | Icon library |
+| **React Hook Form** | Form handling |
+| **Yup** | Form validation |
 
-The actual backend and frontend dependencies are available in the project's `package.json` files. citeturn3view2turn3view3
+### Key Features
 
-## Key Features
+- ✅ **JWT Authentication** — Access token (60 min) + Refresh token (14 days)
+- ✅ **Role-Based Access Control** — Admin vs User permissions
+- ✅ **Task CRUD** — Create, Read, Update, Delete with pagination & filtering
+- ✅ **Audit Logging** — Tracks every significant action (login, CRUD, password reset) with IP address
+- ✅ **Password Reset Flow** — Secure token generation → EJS email template → Nodemailer → 60 min expiry
+- ✅ **Dashboard Statistics** — Task metrics and analytics
+- ✅ **Responsive Sidebar Layout** — Bootstrap 5 admin panel design
+- ✅ **Rate Limiting** — 100 requests per 15 minutes window
+- ✅ **Security Headers** — Helmet protection
 
-- User registration and login
-- JWT-based authentication
-- JWT refresh flow
-- Role-based access control
-- Admin and User roles
-- Task create/read/update/delete
-- Task pagination
-- Task filtering
-- Task statistics
-- Audit logging
-- Forgot-password flow
-- Password reset using email
-- Password hashing
-- Rate limiting
-- Security headers with Helmet
-- CORS configuration
-- Responsive React dashboard
+### Project Structure (PERN)
 
-The repository documents the main authentication, task, audit-log, and password-reset API flows. citeturn1view0
-
-## Roles
-
-### Admin
-- Manage all tasks
-- View dashboard statistics
-- View audit logs
-- Manage own profile
-
-### User
-- Manage own tasks
-- Manage own profile
-
-## Backend Architecture
-
-```text
+```
 PERN/
-└── backend/
-    ├── src/
-    │   ├── config/
-    │   ├── controllers/
-    │   ├── middleware/
-    │   ├── models/
-    │   ├── routes/
-    │   └── utils/
-    ├── views/
-    │   └── emails/
-    ├── database/
-    ├── .env
-    ├── server.js
-    └── package.json
+├── backend/
+│   ├── src/
+│   │   ├── config/           # Database & Mail config
+│   │   ├── controllers/      # Auth, Task, AuditLog, PasswordReset
+│   │   ├── middleware/       # Auth middleware, Error Handler
+│   │   ├── models/           # User, Task, AuditLog, PasswordReset
+│   │   ├── routes/           # API route definitions
+│   │   ├── utils/            # ApiError, asyncHandler, auditLogger, jwtHelper
+│   │   └── views/emails/     # EJS email templates
+│   ├── .env
+│   ├── server.js
+│   └── package.json
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/       # Navbar, Sidebar
+│   │   ├── pages/            # Login, Register, Dashboard, Tasks, AuditLog, etc.
+│   │   ├── context/          # AuthContext, ToastContext
+│   │   ├── services/         # API service layer
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── .env
+│   └── package.json
+│
+└── GOQii Task Manager - Laravel 12 JWT API.postman_collection.json
 ```
 
-The backend follows a controller → service/model → database style separation, with middleware for authentication/error handling and utility modules for reusable functionality. citeturn1view0
+### Setup Instructions
 
-## Frontend Architecture
+```bash
+# 1. Clone & navigate
+cd PERN
 
-```text
-PERN/
-└── frontend/
-    ├── src/
-    │   ├── components/
-    │   ├── pages/
-    │   ├── context/
-    │   ├── services/
-    │   ├── App.jsx
-    │   └── main.jsx
-    ├── public/
-    ├── .env
-    └── package.json
+# 2. Backend setup
+cd backend
+npm install
+# Configure .env (DB credentials, JWT secret, SMTP)
+npm run dev          # Runs on http://localhost:5000
+
+# 3. Frontend setup
+cd ../frontend
+npm install
+# Configure .env (VITE_API_URL=http://localhost:5000/api)
+npm run dev          # Runs on http://localhost:5173
 ```
 
-## Important API Endpoints
+### Default Credentials
+- **Admin:** `admin@goqii.com` / `password123`
+- **User:** `user@goqii.com` / `password123`
 
-| Method | Endpoint | Purpose |
-|---|---|---|
-| POST | `/api/register` | Register user |
-| POST | `/api/login` | Login |
-| POST | `/api/logout` | Logout |
-| POST | `/api/refresh` | Refresh JWT |
-| GET | `/api/me` | Current user |
-| POST | `/api/forgot-password` | Request password reset |
-| POST | `/api/reset-password` | Reset password |
-| GET | `/api/tasks` | List tasks |
-| POST | `/api/tasks` | Create task |
-| GET | `/api/tasks/{id}` | Get task |
+---
+
+## 🔶 Project 2: PHPWithReact — Laravel 12 + MySQL
+
+### Tech Stack
+
+#### Backend
+| Technology | Purpose |
+|-----------|---------|
+| **Laravel 12** | PHP web framework |
+| **PHP** | Server-side language |
+| **MySQL** | Relational database |
+| **Eloquent ORM** | Database ORM |
+| **JWT Auth** | `php-open-source-saver/jwt-auth` package |
+| **Laravel CORS** | `fruitcake/laravel-cors` for cross-origin handling |
+| **Migrations & Seeders** | Database versioning & test data |
+| **Middleware** | Role-based route protection |
+
+#### Frontend
+| Technology | Purpose |
+|-----------|---------|
+| **React 18** | UI library |
+| **Vite** | Build tool & dev server |
+| **React Router DOM** | Client-side routing |
+| **Axios** | HTTP client |
+| **Bootstrap 5** | CSS framework |
+
+### Key Features
+
+- ✅ **JWT Authentication** — Token-based auth with Laravel JWT package
+- ✅ **Role-Based Access Control** — Admin vs User via custom `CheckRole` middleware
+- ✅ **Task CRUD** — Full Create, Read, Update, Delete with pagination & status filtering
+- ✅ **Dashboard Statistics** — Task analytics endpoint (`/api/tasks/stats`)
+- ✅ **Optimized Database** — Indexed migrations (`user_id+status`, `due_date`, `priority`)
+- ✅ **Responsive Sidebar Layout** — Bootstrap 5 admin panel
+- ✅ **CORS Handling** — Properly configured for React frontend communication
+- ✅ **Database Seeding** — Pre-populated admin & user accounts
+
+### Project Structure (PHPWithReact)
+
+```
+PHPWithReact/
+├── backend/
+│   ├── app/
+│   │   ├── Http/Controllers/     # AuthController, TaskController
+│   │   ├── Http/Middleware/      # CheckRole middleware
+│   │   └── Models/               # User, Task (Eloquent)
+│   ├── database/
+│   │   ├── migrations/           # Optimized with indexes
+│   │   └── seeders/              # DatabaseSeeder
+│   ├── routes/
+│   │   └── api.php               # API route definitions
+│   ├── config/
+│   │   └── auth.php              # JWT auth configuration
+│   ├── bootstrap/
+│   │   └── app.php               # CORS middleware registration
+│   ├── .env
+│   ├── composer.json
+│   └── artisan
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/           # Navbar, Sidebar
+│   │   ├── pages/                # Login, Register, Dashboard, Tasks, TaskForm
+│   │   ├── context/              # AuthContext
+│   │   ├── services/             # API service layer
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── .env
+│   └── package.json
+│
+└── GOQii Task Manager - Laravel 12 JWT API.postman_collection.json
+```
+
+### Setup Instructions
+
+```bash
+# 1. Clone & navigate
+cd PHPWithReact
+
+# 2. Backend setup
+cd backend
+composer install
+composer require php-open-source-saver/jwt-auth
+composer require fruitcake/laravel-cors
+php artisan vendor:publish --provider="PHPOpenSourceSaver\JWTAuth\Providers\LaravelServiceProvider"
+php artisan jwt:secret
+cp .env.example .env
+php artisan key:generate
+# Configure DB credentials in .env
+php artisan migrate --seed
+php artisan serve --host=0.0.0.0 --port=8000   # Runs on http://localhost:8000
+
+# 3. Frontend setup
+cd ../frontend
+npm install
+# Configure .env (VITE_API_URL=http://localhost:8000/api)
+npm run dev          # Runs on http://localhost:5173
+```
+
+### Default Credentials
+- **Admin:** `admin@goqii.com` / `password123`
+- **User:** `user@goqii.com` / `password123`
+
+---
+
+## 🎯 Common Features Across Both Projects
+
+| Feature | PERN | PHPWithReact |
+|---------|------|--------------|
+| **Authentication** | JWT (jsonwebtoken) | JWT (php-open-source-saver/jwt-auth) |
+| **Authorization** | Middleware-based role check | Laravel `CheckRole` middleware |
+| **Task Management** | Full CRUD + pagination + filtering | Full CRUD + pagination + filtering |
+| **Role System** | `admin` / `user` | `admin` / `user` |
+| **Admin Powers** | All tasks, audit logs, stats | All tasks, stats |
+| **User Powers** | Own tasks only | Own tasks only |
+| **Database Indexes** | `role`, `email`, `user_id+status`, `due_date`, `priority` | `role`, `user_id+status`, `due_date`, `priority` |
+| **Postman Collection** | ✅ Included | ✅ Included |
+| **Frontend Stack** | React + Vite + Bootstrap 5 | React + Vite + Bootstrap 5 |
+| **API Pattern** | RESTful JSON | RESTful JSON |
+
+---
+
+## 💼 Interview Talking Points
+
+### Architecture Decisions
+
+1. **Why PERN for one and Laravel for the other?**
+   - PERN demonstrates raw Node.js/Express architecture — full control over middleware, JWT implementation, and ORM configuration
+   - Laravel leverages framework conventions — rapid development, built-in auth scaffolding, Eloquent relationships, and artisan commands
+
+2. **Why Sequelize vs Eloquent?**
+   - Sequelize (PERN): JavaScript-first ORM with migration support, model definitions, and raw query flexibility
+   - Eloquent (Laravel): PHP's most elegant ORM with relationships, query scopes, and collection methods
+
+3. **JWT Implementation Differences**
+   - PERN: Manual JWT handling with `jsonwebtoken` library — custom refresh token logic, token expiry management
+   - Laravel: Package-driven (`php-open-source-saver/jwt-auth`) — config-based, integrated with Laravel's auth guard system
+
+4. **Database Choice**
+   - PostgreSQL (PERN): Advanced JSON support, robust concurrency, complex query capabilities
+   - MySQL (Laravel): Traditional RDBMS, excellent Laravel integration, widespread hosting support
+
+### Security Measures
+
+- **Password Hashing:** bcryptjs (PERN) / Laravel Hash facade (PHP)
+- **JWT Token Expiry:** 60 min access, 14 days refresh (PERN) / Configurable (PHP)
+- **Rate Limiting:** Express rate limiter (PERN)
+- **CORS:** Explicit origin whitelist
+- **Helmet:** Security headers (PERN)
+- **Input Validation:** Zod schema validation (PERN) / Laravel Request validation (PHP)
+- **SQL Injection Protection:** Parameterized queries via ORM in both
+
+### Scalability Considerations
+
+- **Database Indexing:** Optimized indexes on frequently queried columns
+- **Pagination:** Server-side pagination with limit/offset
+- **Audit Logging:** Separate audit_logs table (PERN) for tracking without impacting main operations
+- **Separation of Concerns:** Controllers handle HTTP, Services handle business logic, Models handle data
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v18+)
+- npm or yarn
+- PostgreSQL (for PERN)
+- MySQL (for PHPWithReact)
+- PHP 8.2+ & Composer (for PHPWithReact)
+- Git
+
+### Quick Start (PERN)
+```bash
+git clone https://github.com/AbulQasim123/GoqiiTaskManager.git
+cd GoqiiTaskManager/PERN/backend
+npm install && npm run dev
+cd ../frontend
+npm install && npm run dev
+```
+
+### Quick Start (PHPWithReact)
+```bash
+cd GoqiiTaskManager/PHPWithReact/backend
+composer install
+php artisan migrate --seed
+php artisan serve
+cd ../frontend
+npm install && npm run dev
+```
+
+---
+
+## 📡 API Documentation
+
+Both projects expose identical REST API endpoints:
+
+### Authentication
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/register` | Register new user |
+| POST | `/api/login` | Login & receive JWT |
+| POST | `/api/logout` | Invalidate token |
+| POST | `/api/refresh` | Refresh JWT token *(PERN only)* |
+| GET | `/api/me` | Get current user profile |
+| POST | `/api/forgot-password` | Request password reset *(PERN only)* |
+| POST | `/api/reset-password` | Reset password with token *(PERN only)* |
+
+### Tasks
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/tasks` | List tasks (paginated, filterable) |
+| POST | `/api/tasks` | Create new task |
+| GET | `/api/tasks/{id}` | Get single task |
 | PUT | `/api/tasks/{id}` | Update task |
 | DELETE | `/api/tasks/{id}` | Delete task |
 | GET | `/api/tasks/stats` | Dashboard statistics |
-| GET | `/api/audit-logs` | Audit logs |
 
-## Database Design
+### Audit Logs *(PERN only)*
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/audit-logs` | List audit logs |
+| GET | `/api/audit-logs/actions` | Get available audit actions |
 
-Main tables:
+> **Postman Collection:** Both folders include `GOQii Task Manager - Laravel 12 JWT API.postman_collection.json` for testing.
 
-### users
-- id
+---
+
+## 🗄️ Database Schema
+
+### Users Table
+```sql
+- id (PK)
 - name
-- email
-- password
-- role
+- email (unique, indexed)
+- password (hashed)
+- role (admin/user, indexed)
 - email_verified_at
-- created_at
-- updated_at
+- remember_token
+- created_at / updated_at
+```
 
-### tasks
-- id
-- user_id
+### Tasks Table
+```sql
+- id (PK)
+- user_id (FK, indexed)
 - title
 - description
 - status
 - priority
-- due_date
-- created_at
-- updated_at
+- due_date (indexed)
+- created_at / updated_at
+- Composite index: (user_id, status)
+```
 
-### audit_logs
-- id
-- user_id
-- action
+### Audit Logs Table *(PERN only)*
+```sql
+- id (PK)
+- user_id (FK)
+- action (login, logout, create, update, delete, etc.)
 - entity_type
 - entity_id
 - description
 - ip_address
-- created_at
-
-### password_reset_tokens
-- email
-- token
-- created_at
-
-PostgreSQL is accessed through Sequelize, which handles models, relationships, queries, validations, and database connectivity. citeturn1view0
-
-## PERN Setup
-
-### 1. Clone repository
-
-```bash
-git clone https://github.com/AbulQasim123/GoqiiTaskManager.git
-cd GoqiiTaskManager/PERN
+- created_at / updated_at
 ```
 
-### 2. Backend
-
-```bash
-cd backend
-npm install
-```
-
-Create/update `.env`:
-
-```env
-PORT=5000
-NODE_ENV=development
-
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=goqii_task_manager
-DB_USER=postgres
-DB_PASSWORD=your_postgres_password
-
-JWT_SECRET=your_super_secret_jwt_key
-JWT_EXPIRES_IN=60m
-JWT_REFRESH_EXPIRES_IN=14d
-
-FRONTEND_URL=http://localhost:5173
-
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=your_email@gmail.com
-SMTP_PASS=your_gmail_app_password
-SMTP_SECURE=false
-MAIL_FROM_ADDRESS=your_email@gmail.com
-MAIL_FROM_NAME="GOQii Task Manager"
-```
-
-Create the PostgreSQL database:
-
+### Password Reset Tokens Table *(PERN only)*
 ```sql
-CREATE DATABASE goqii_task_manager;
-```
-
-Initialize/seed data if required:
-
-```bash
-npm run db:init
-npm run db:seed
-```
-
-Start the API:
-
-```bash
-npm run dev
-```
-
-Backend:
-
-```text
-http://localhost:5000
-```
-
-### 3. Frontend
-
-Open another terminal:
-
-```bash
-cd GoqiiTaskManager/PERN/frontend
-npm install
-```
-
-Create `.env`:
-
-```env
-VITE_API_URL=http://localhost:5000/api
-```
-
-Start React:
-
-```bash
-npm run dev
-```
-
-Frontend:
-
-```text
-http://localhost:5173
-```
-
-### Default Credentials
-
-```text
-Admin
-Email: admin@goqii.com
-Password: password123
-
-User
-Email: user@goqii.com
-Password: password123
+- email (indexed)
+- token (hashed)
+- created_at (auto-expires after 60 min)
 ```
 
 ---
 
-# 2. PHPWithReact — Laravel 12 + PHP + React
+## 📁 Project Structure
 
-## Overview
-
-The second implementation uses **Laravel 12 as the backend API** and **React + Vite as the frontend**.
-
-This version demonstrates how the same Task Manager requirements can be implemented using PHP/Laravel instead of Node.js/Express.
-
-The Laravel backend requires PHP 8.2+ and Laravel 12, and uses `php-open-source-saver/jwt-auth` for JWT authentication. citeturn3view0
-
-## Tech Stack
-
-**Backend**
-- PHP 8.2+
-- Laravel 12
-- Laravel Eloquent ORM
-- JWT Authentication
-- PHPUnit
-- Laravel migrations
-- Laravel validation
-- Laravel middleware
-- Laravel routing
-
-**Frontend**
-- React 19
-- Vite
-- Axios
-- React Router
-- Bootstrap 5
-- React Hook Form
-- Yup
-
-The frontend dependency configuration is present in the project's package configuration. citeturn3view1
-
-## Key Features
-
-- REST API using Laravel
-- JWT authentication
-- Role-based access
-- Admin/User roles
-- Task CRUD
-- Task filtering and pagination
-- Dashboard statistics
-- Audit logging
-- Password reset
-- Secure password hashing
-- Request validation
-- React-based admin/user interface
-
-## Laravel Backend Structure
-
-```text
-PHPWithReact/
-└── backend/
-    ├── app/
-    ├── bootstrap/
-    ├── config/
-    ├── database/
-    ├── public/
-    ├── resources/
-    ├── routes/
-    ├── storage/
-    ├── tests/
-    ├── .env.example
-    ├── artisan
-    ├── composer.json
-    └── vite.config.js
 ```
-
-The Laravel backend contains the standard application, configuration, database, routes, storage, tests, and public directories. citeturn2view0
-
-## React Frontend Structure
-
-```text
-PHPWithReact/
-└── frontend/
-    ├── public/
-    ├── src/
-    ├── .env
-    ├── package.json
-    └── vite.config.js
-```
-
-## PHPWithReact Setup
-
-### 1. Clone repository
-
-```bash
-git clone https://github.com/AbulQasim123/GoqiiTaskManager.git
-cd GoqiiTaskManager/PHPWithReact
-```
-
-### 2. Backend setup
-
-Requirements:
-
-```text
-PHP >= 8.2
-Composer
-Node.js >= 18
-Database: SQLite by default, or another Laravel-supported database
-```
-
-Install PHP dependencies:
-
-```bash
-cd backend
-composer install
-```
-
-Create environment file:
-
-```bash
-cp .env.example .env
-```
-
-On Windows CMD:
-
-```cmd
-copy .env.example .env
-```
-
-Generate application key:
-
-```bash
-php artisan key:generate
-```
-
-Run migrations:
-
-```bash
-php artisan migrate
-```
-
-The provided Laravel environment example is configured for SQLite by default. It can also be changed to MySQL/PostgreSQL by updating the Laravel `DB_*` environment variables. citeturn4view0
-
-Start Laravel:
-
-```bash
-php artisan serve
-```
-
-Default backend:
-
-```text
-http://127.0.0.1:8000
-```
-
-### 3. Frontend setup
-
-Open another terminal:
-
-```bash
-cd GoqiiTaskManager/PHPWithReact/frontend
-npm install
-```
-
-Create/update `.env` according to the API URL used by the Laravel backend.
-
-Start React:
-
-```bash
-npm run dev
-```
-
----
-
-# Architecture Comparison
-
-| Area | PERN | PHPWithReact |
-|---|---|---|
-| Backend | Node.js + Express | Laravel 12 + PHP |
-| Frontend | React | React |
-| Database | PostgreSQL | SQLite by default / configurable |
-| ORM | Sequelize | Eloquent |
-| Authentication | JWT | JWT |
-| Validation | Zod | Laravel validation |
-| API | REST API | REST API |
-| UI | Bootstrap 5 | Bootstrap 5 |
-| Build Tool | Vite | Vite |
-| HTTP Client | Axios | Axios |
-| Forms | React Hook Form + Yup | React Hook Form + Yup |
-| Password Hashing | bcryptjs | Laravel Hash |
-| Email | Nodemailer + EJS | Laravel mail system |
-| Testing | Node tooling | PHPUnit |
-
----
-
-# Interview Discussion Points
-
-This project can be discussed from both **backend and full-stack perspectives**.
-
-## 1. Authentication
-
-JWT is used so that the frontend can authenticate API requests using:
-
-```http
-Authorization: Bearer <token>
-```
-
-Important interview topics:
-
-- Authentication vs authorization
-- JWT access/refresh token flow
-- Password hashing
-- Token expiration
-- Protected routes
-- Middleware
-
-## 2. Role-Based Access Control
-
-The application separates Admin and User permissions.
-
-Example:
-
-```text
-Admin
- ├── View all tasks
- ├── Dashboard statistics
- ├── Audit logs
- └── Profile
-
-User
- ├── Own tasks
- └── Profile
-```
-
-This demonstrates authorization at the API level instead of relying only on frontend route protection.
-
-## 3. Database Design
-
-The application separates users, tasks, audit logs, and password reset information.
-
-This avoids unnecessary duplication and keeps relationships clear.
-
-Important interview topics:
-
-- Primary keys
-- Foreign keys
-- One-to-many relationships
-- Indexes
-- Normalization
-- Query optimization
-- Pagination
-
-## 4. Audit Logging
-
-Important actions can be recorded with:
-
-```text
-User
-Action
-Entity
-Entity ID
-Description
-IP Address
-Timestamp
-```
-
-This is useful for tracking changes and investigating user activity.
-
-## 5. Password Reset
-
-The password-reset flow is designed around a temporary reset token.
-
-Typical flow:
-
-```text
-Forgot Password
-      ↓
-Generate Token
-      ↓
-Store Token
-      ↓
-Send Reset Email
-      ↓
-User Opens Link
-      ↓
-Validate Token
-      ↓
-Set New Password
-      ↓
-Invalidate Token
-```
-
-## 6. API Security
-
-Security-related implementation includes:
-
-- Password hashing
-- JWT authentication
-- Role-based authorization
-- CORS
-- Rate limiting
-- HTTP security headers
-- Input validation
-- Environment variables for secrets
-
-## 7. Performance
-
-Potential areas to discuss in an interview:
-
-- Database indexing
-- Pagination instead of loading all records
-- Filtering at database level
-- Selecting only required columns
-- Avoiding unnecessary API calls
-- Proper relationships
-- Query optimization
-- HTTP caching where appropriate
-
----
-
-# Interview Project Explanation
-
-A short explanation you can use in an interview:
-
-> "I developed a Task Manager application with two backend implementations. The first implementation uses the PERN stack — Node.js, Express, PostgreSQL and React. The second implementation uses Laravel 12 with PHP and React. Both implementations provide JWT authentication, role-based authorization, task CRUD operations, pagination, filtering, audit logging and password reset functionality.
->
-> I separated the frontend and backend so the React application communicates with the backend through REST APIs. I also focused on database relationships, validation, authentication middleware, security and maintainable project structure."
-
----
-
-# Project Structure
-
-```text
 GoqiiTaskManager/
 │
-├── PERN/
-│   ├── backend/
-│   └── frontend/
+├── PERN/                           # Node.js + Express + PostgreSQL + React
+│   ├── backend/                    # Express API
+│   │   ├── src/
+│   │   │   ├── config/
+│   │   │   ├── controllers/
+│   │   │   ├── middleware/
+│   │   │   ├── models/
+│   │   │   ├── routes/
+│   │   │   ├── utils/
+│   │   │   └── views/emails/
+│   │   ├── .env
+│   │   ├── server.js
+│   │   └── package.json
+│   ├── frontend/                   # React + Vite
+│   │   ├── src/
+│   │   │   ├── components/
+│   │   │   ├── pages/
+│   │   │   ├── context/
+│   │   │   ├── services/
+│   │   │   ├── App.jsx
+│   │   │   └── main.jsx
+│   │   ├── .env
+│   │   └── package.json
+│   ├── .env
+│   ├── README.md
+│   └── GOQii Task Manager - Laravel 12 JWT API.postman_collection.json
 │
-├── PHPWithReact/
-│   ├── backend/
-│   └── frontend/
+├── PHPWithReact/                   # Laravel 12 + MySQL + React
+│   ├── backend/                    # Laravel API
+│   │   ├── app/
+│   │   │   ├── Http/Controllers/
+│   │   │   ├── Http/Middleware/
+│   │   │   └── Models/
+│   │   ├── database/migrations/
+│   │   ├── database/seeders/
+│   │   ├── routes/api.php
+│   │   ├── config/
+│   │   ├── bootstrap/
+│   │   ├── .env
+│   │   ├── composer.json
+│   │   └── artisan
+│   ├── frontend/                   # React + Vite
+│   │   ├── src/
+│   │   │   ├── components/
+│   │   │   ├── pages/
+│   │   │   ├── context/
+│   │   │   ├── services/
+│   │   │   ├── App.jsx
+│   │   │   └── main.jsx
+│   │   ├── .env
+│   │   └── package.json
+│   ├── .env
+│   ├── README.md
+│   └── GOQii Task Manager - Laravel 12 JWT API.postman_collection.json
 │
-└── README.md
-```
-
-The public GitHub repository currently contains these two top-level implementations: `PERN` and `PHPWithReact`. citeturn0view0
-
----
-
-# API Testing
-
-The PERN directory includes a Postman collection:
-
-```text
-GOQii Task Manager - Laravel 12 JWT API.postman_collection.json
-```
-
-Use the collection to test authentication, task, dashboard and related API flows.
-
----
-
-# Security Notes
-
-Do not commit real secrets to GitHub.
-
-Never commit:
-
-```text
-.env
-real database passwords
-JWT secrets
-SMTP passwords
-API keys
-production credentials
-```
-
-Use `.env.example` as the template for local configuration.
-
----
-
-# Development Commands
-
-## PERN Backend
-
-```bash
-cd PERN/backend
-npm install
-npm run dev
-```
-
-## PERN Frontend
-
-```bash
-cd PERN/frontend
-npm install
-npm run dev
-```
-
-## Laravel Backend
-
-```bash
-cd PHPWithReact/backend
-composer install
-php artisan key:generate
-php artisan migrate
-php artisan serve
-```
-
-## Laravel React Frontend
-
-```bash
-cd PHPWithReact/frontend
-npm install
-npm run dev
+└── README.md                       # This file
 ```
 
 ---
 
-# Repository Goals
+## 👤 Author
 
-This project demonstrates practical experience with:
-
-- REST API development
-- React application development
-- Authentication and authorization
-- JWT
-- PostgreSQL
-- MySQL/SQLite-compatible Laravel database configuration
-- ORM usage
-- Database relationships
-- CRUD operations
-- Pagination and filtering
-- Form validation
-- Password reset
-- Email integration
-- Audit logging
-- API security
-- Modular backend architecture
-- Frontend/backend separation
+**Abul Qasim**
+- GitHub: [@AbulQasim123](https://github.com/AbulQasim123)
+- Project: [GoqiiTaskManager](https://github.com/AbulQasim123/GoqiiTaskManager)
 
 ---
 
-# Author
+## 📝 License
 
-**Abul Qasim Ansari**
-
-GitHub: https://github.com/AbulQasim123
-
-Repository: https://github.com/AbulQasim123/GoqiiTaskManager
+This project was built for **GOQii Practical Assessment** purposes.
 
 ---
 
-## Note
-
-This README is written for technical reviewers and interviewers. It intentionally highlights the architecture, technology choices, setup, security, database design, and discussion points that are useful when evaluating the project.
+> **Pro Tip for Interviewers:** Both implementations share the same React frontend architecture, demonstrating the ability to swap backend technologies without affecting the client-side codebase — a key skill in modern full-stack development.
