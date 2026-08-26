@@ -8,15 +8,15 @@
 
 Based on the [GOQii Practical Assessment PDF](https://github.com/AbulQasim123/GoqiiTaskManager), here is the task-by-task breakdown:
 
-| Task | Title | Status | Notes |
-|------|-------|--------|-------|
-| **Task 1** | Full-Stack CRUD App: Task Manager | ✅ **Complete** | PHP REST API + React frontend. Full CRUD with filtering, pagination, validation |
-| **Task 2** | Authentication & Authorization | ✅ **Complete** | JWT auth, role-based access (Admin/User), protected routes, logout, token expiry |
-| **Task 3** | Database Design & Query Optimization | ✅ **Complete** | Optimized schema with indexes, relationships, constraints. Queries with indexing justification |
-| **Task 4** | Containerization with Docker | ⚠️ **Knowledgeable but not implemented** | See [Docker Section](#-task-4--docker-containerization) below |
-| **Task 5** | Node.js / PostgreSQL Variant | ✅ **Complete** | Full PERN stack re-implementation as bonus — see [PERN Folder](#-project-1-pern-stack) |
-| **Task 6** | Cloud Deployment (AWS/GCP) | ⚠️ **Knowledgeable but not deployed** | See [Cloud Section](#-task-6--cloud-deployment) below |
-| **Task 7** | AI Agent Feature (Claude/Gemini) | ❌ **Not Attempted** | Out of scope for this assessment |
+| Task       | Title                                | Status                                   | Notes                                                                                                     |
+| ---------- | ------------------------------------ | ---------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| **Task 1** | Full-Stack CRUD App: Task Manager    | ✅ **Complete**                          | PHP REST API + React frontend. Full CRUD with filtering, pagination, validation                           |
+| **Task 2** | Authentication & Authorization       | ✅ **Complete**                          | JWT auth, role-based access (Admin/User), protected routes, logout, token expiry                          |
+| **Task 3** | Database Design & Query Optimization | ✅ **Complete**                          | Optimized schema with indexes, relationships, constraints. Queries with indexing justification            |
+| **Task 4** | Containerization with Docker         | ⚠️ **Knowledgeable but not implemented** | See [Docker Section](#-task-4--docker-containerization) below                                             |
+| **Task 5** | Node.js / PostgreSQL Variant         | ✅ **Complete**                          | Full PERN stack re-implementation as bonus — see [PERN Folder](#-project-1-pern-stack)                    |
+| **Task 6** | Cloud Deployment (AWS/GCP)           | ⚠️ **Knowledgeable but not deployed**    | See [Cloud Section](#-task-6--cloud-deployment) below                                                     |
+| **Task 7** | AI Agent Feature (Claude/Gemini)     | ❌ **Not Attempted**                     | I have alrady integrate openAI in my previous organization, currently I don't have any AI api credential. |
 
 ---
 
@@ -27,33 +27,35 @@ Based on the [GOQii Practical Assessment PDF](https://github.com/AbulQasim123/Go
 ### Tech Stack
 
 #### Backend
-| Technology | Purpose |
-|-----------|---------|
-| **Node.js** | Runtime environment |
-| **Express.js** | REST API framework |
-| **PostgreSQL** | Relational database |
-| **Sequelize** | ORM for database operations |
-| **JWT** | Stateless authentication |
-| **bcryptjs** | Password hashing |
-| **Nodemailer** | Email service (password reset) |
-| **EJS** | Email template engine |
-| **Zod** | Input validation & schema parsing |
-| **Helmet** | Security headers |
-| **Morgan** | HTTP request logging |
-| **express-rate-limit** | API rate limiting |
-| **CORS** | Cross-origin resource sharing |
+
+| Technology             | Purpose                           |
+| ---------------------- | --------------------------------- |
+| **Node.js**            | Runtime environment               |
+| **Express.js**         | REST API framework                |
+| **PostgreSQL**         | Relational database               |
+| **Sequelize**          | ORM for database operations       |
+| **JWT**                | Stateless authentication          |
+| **bcryptjs**           | Password hashing                  |
+| **Nodemailer**         | Email service (password reset)    |
+| **EJS**                | Email template engine             |
+| **Zod**                | Input validation & schema parsing |
+| **Helmet**             | Security headers                  |
+| **Morgan**             | HTTP request logging              |
+| **express-rate-limit** | API rate limiting                 |
+| **CORS**               | Cross-origin resource sharing     |
 
 #### Frontend
-| Technology | Purpose |
-|-----------|---------|
-| **React 18** | UI library |
-| **Vite** | Build tool & dev server |
-| **React Router DOM** | Client-side routing |
-| **Axios** | HTTP client |
-| **Bootstrap 5** | CSS framework |
-| **Bootstrap Icons** | Icon library |
-| **React Hook Form** | Form handling |
-| **Yup** | Form validation |
+
+| Technology           | Purpose                 |
+| -------------------- | ----------------------- |
+| **React 18**         | UI library              |
+| **Vite**             | Build tool & dev server |
+| **React Router DOM** | Client-side routing     |
+| **Axios**            | HTTP client             |
+| **Bootstrap 5**      | CSS framework           |
+| **Bootstrap Icons**  | Icon library            |
+| **React Hook Form**  | Form handling           |
+| **Yup**              | Form validation         |
 
 ### Key Features
 
@@ -98,6 +100,12 @@ PERN/
 └── GOQii Task Manager - Laravel 12 JWT API.postman_collection.json
 ```
 
+## Setup & Testing Notes
+
+For easier setup and testing, I have included the required `.env` configuration and the Postman collection with pre-written scripts.
+
+If you face any issues while setting up or testing the project, please feel free to reach out to me.
+
 ### Setup Instructions
 
 ```bash
@@ -118,6 +126,7 @@ npm run dev          # Runs on http://localhost:5173
 ```
 
 ### Default Credentials
+
 - **Admin:** `admin@goqii.com` / `password123`
 - **User:** `user@goqii.com` / `password123`
 
@@ -130,25 +139,27 @@ npm run dev          # Runs on http://localhost:5173
 ### Tech Stack
 
 #### Backend
-| Technology | Purpose |
-|-----------|---------|
-| **Laravel 12** | PHP web framework |
-| **PHP** | Server-side language |
-| **MySQL** | Relational database |
-| **Eloquent ORM** | Database ORM |
-| **JWT Auth** | `php-open-source-saver/jwt-auth` package |
-| **Laravel CORS** | `fruitcake/laravel-cors` for cross-origin handling |
-| **Migrations & Seeders** | Database versioning & test data |
-| **Middleware** | Role-based route protection |
+
+| Technology               | Purpose                                            |
+| ------------------------ | -------------------------------------------------- |
+| **Laravel 12**           | PHP web framework                                  |
+| **PHP**                  | Server-side language                               |
+| **MySQL**                | Relational database                                |
+| **Eloquent ORM**         | Database ORM                                       |
+| **JWT Auth**             | `php-open-source-saver/jwt-auth` package           |
+| **Laravel CORS**         | `fruitcake/laravel-cors` for cross-origin handling |
+| **Migrations & Seeders** | Database versioning & test data                    |
+| **Middleware**           | Role-based route protection                        |
 
 #### Frontend
-| Technology | Purpose |
-|-----------|---------|
-| **React 18** | UI library |
-| **Vite** | Build tool & dev server |
-| **React Router DOM** | Client-side routing |
-| **Axios** | HTTP client |
-| **Bootstrap 5** | CSS framework |
+
+| Technology           | Purpose                 |
+| -------------------- | ----------------------- |
+| **React 18**         | UI library              |
+| **Vite**             | Build tool & dev server |
+| **React Router DOM** | Client-side routing     |
+| **Axios**            | HTTP client             |
+| **Bootstrap 5**      | CSS framework           |
 
 ### Key Features
 
@@ -224,6 +235,7 @@ npm run dev          # Runs on http://localhost:5173
 ```
 
 ### Default Credentials
+
 - **Admin:** `admin@goqii.com` / `password123`
 - **User:** `user@goqii.com` / `password123`
 
@@ -231,18 +243,18 @@ npm run dev          # Runs on http://localhost:5173
 
 ## 🎯 Common Features Across Both Projects
 
-| Feature | PERN | PHPWithReact |
-|---------|------|--------------|
-| **Authentication** | JWT (jsonwebtoken) | JWT (php-open-source-saver/jwt-auth) |
-| **Authorization** | Middleware-based role check | Laravel `CheckRole` middleware |
-| **Task Management** | Full CRUD + pagination + filtering | Full CRUD + pagination + filtering |
-| **Role System** | `admin` / `user` | `admin` / `user` |
-| **Admin Powers** | All tasks, audit logs, stats | All tasks, stats |
-| **User Powers** | Own tasks only | Own tasks only |
-| **Database Indexes** | `role`, `email`, `user_id+status`, `due_date`, `priority` | `role`, `user_id+status`, `due_date`, `priority` |
-| **Postman Collection** | ✅ Included | ✅ Included |
-| **Frontend Stack** | React + Vite + Bootstrap 5 | React + Vite + Bootstrap 5 |
-| **API Pattern** | RESTful JSON | RESTful JSON |
+| Feature                | PERN                                                      | PHPWithReact                                     |
+| ---------------------- | --------------------------------------------------------- | ------------------------------------------------ |
+| **Authentication**     | JWT (jsonwebtoken)                                        | JWT (php-open-source-saver/jwt-auth)             |
+| **Authorization**      | Middleware-based role check                               | Laravel `CheckRole` middleware                   |
+| **Task Management**    | Full CRUD + pagination + filtering                        | Full CRUD + pagination + filtering               |
+| **Role System**        | `admin` / `user`                                          | `admin` / `user`                                 |
+| **Admin Powers**       | All tasks, audit logs, stats                              | All tasks, stats                                 |
+| **User Powers**        | Own tasks only                                            | Own tasks only                                   |
+| **Database Indexes**   | `role`, `email`, `user_id+status`, `due_date`, `priority` | `role`, `user_id+status`, `due_date`, `priority` |
+| **Postman Collection** | ✅ Included                                               | ✅ Included                                      |
+| **Frontend Stack**     | React + Vite + Bootstrap 5                                | React + Vite + Bootstrap 5                       |
+| **API Pattern**        | RESTful JSON                                              | RESTful JSON                                     |
 
 ---
 
@@ -273,7 +285,7 @@ Due to **limited disk space** on my development machine, I was unable to install
 
 ```yaml
 # docker-compose.yml (conceptual)
-version: '3.8'
+version: "3.8"
 services:
   backend:
     build: ./backend
@@ -321,6 +333,7 @@ volumes:
 I have theoretical knowledge and have studied deployment strategies for both **AWS** and **GCP**:
 
 #### AWS Deployment Knowledge
+
 - **EC2** — Launch Linux instances, configure security groups, install LAMP/LEMP stack
 - **RDS** — Managed MySQL/PostgreSQL with automated backups
 - **S3** — Static asset storage for React build files
@@ -329,6 +342,7 @@ I have theoretical knowledge and have studied deployment strategies for both **A
 - **CodePipeline / GitHub Actions** — CI/CD automation
 
 #### GCP Deployment Knowledge
+
 - **Compute Engine** — VM instances for backend hosting
 - **Cloud SQL** — Managed MySQL/PostgreSQL
 - **Cloud Storage** — Static file hosting
@@ -337,71 +351,16 @@ I have theoretical knowledge and have studied deployment strategies for both **A
 
 ### Why It Was Not Deployed
 
-Both **AWS** and **GCP** have recently changed their free-tier policies and verification requirements. New account creation and free-tier activation have become restricted in certain regions, requiring credit card verification with charges that are no longer fully waived. Due to these policy changes, I was unable to create and utilize free-tier accounts for deployment.
-
-### Deployment Architecture (Conceptual)
-
-```
-┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│   React App     │────▶│  AWS S3 /       │     │  CloudFront     │
-│   (Build)       │     │  GCP Cloud      │────▶│  CDN            │
-└─────────────────┘     │  Storage        │     └─────────────────┘
-                        └─────────────────┘
-                                │
-                                ▼
-┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│   API Requests  │────▶│  EC2 / Compute  │────▶│  RDS / Cloud    │
-│   (Axios)       │     │  Engine         │     │  SQL            │
-└─────────────────┘     │  (PHP/Node)     │     │  (MySQL/Postgre)│
-                        └─────────────────┘     └─────────────────┘
-```
+Both **AWS** and **GCP** have recently changed their free-tier policies and verification requirements. requiring credit card verification with charges that are no longer fully waived. Due to these policy changes, I was unable to create and utilize free-tier accounts for deployment.
 
 > **Note:** Given access to an active cloud account, I can deploy this application within a day using the above architecture.
 
 ---
 
-## 💼 Interview Talking Points
-
-### Architecture Decisions
-
-1. **Why PERN for one and Laravel for the other?**
-   - PERN demonstrates raw Node.js/Express architecture — full control over middleware, JWT implementation, and ORM configuration
-   - Laravel leverages framework conventions — rapid development, built-in auth scaffolding, Eloquent relationships, and artisan commands
-
-2. **Why Sequelize vs Eloquent?**
-   - Sequelize (PERN): JavaScript-first ORM with migration support, model definitions, and raw query flexibility
-   - Eloquent (Laravel): PHP's most elegant ORM with relationships, query scopes, and collection methods
-
-3. **JWT Implementation Differences**
-   - PERN: Manual JWT handling with `jsonwebtoken` library — custom refresh token logic, token expiry management
-   - Laravel: Package-driven (`php-open-source-saver/jwt-auth`) — config-based, integrated with Laravel's auth guard system
-
-4. **Database Choice**
-   - PostgreSQL (PERN): Advanced JSON support, robust concurrency, complex query capabilities
-   - MySQL (Laravel): Traditional RDBMS, excellent Laravel integration, widespread hosting support
-
-### Security Measures
-
-- **Password Hashing:** bcryptjs (PERN) / Laravel Hash facade (PHP)
-- **JWT Token Expiry:** 60 min access, 14 days refresh (PERN) / Configurable (PHP)
-- **Rate Limiting:** Express rate limiter (PERN)
-- **CORS:** Explicit origin whitelist
-- **Helmet:** Security headers (PERN)
-- **Input Validation:** Zod schema validation (PERN) / Laravel Request validation (PHP)
-- **SQL Injection Protection:** Parameterized queries via ORM in both
-
-### Scalability Considerations
-
-- **Database Indexing:** Optimized indexes on frequently queried columns
-- **Pagination:** Server-side pagination with limit/offset
-- **Audit Logging:** Separate audit_logs table (PERN) for tracking without impacting main operations
-- **Separation of Concerns:** Controllers handle HTTP, Services handle business logic, Models handle data
-
----
-
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
+
 - Node.js (v18+)
 - npm or yarn
 - PostgreSQL (for PERN)
@@ -410,6 +369,7 @@ Both **AWS** and **GCP** have recently changed their free-tier policies and veri
 - Git
 
 ### Quick Start (PERN)
+
 ```bash
 git clone https://github.com/AbulQasim123/GoqiiTaskManager.git
 cd GoqiiTaskManager/PERN/backend
@@ -419,6 +379,7 @@ npm install && npm run dev
 ```
 
 ### Quick Start (PHPWithReact)
+
 ```bash
 cd GoqiiTaskManager/PHPWithReact/backend
 composer install
@@ -435,31 +396,34 @@ npm install && npm run dev
 Both projects expose identical REST API endpoints:
 
 ### Authentication
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/register` | Register new user |
-| POST | `/api/login` | Login & receive JWT |
-| POST | `/api/logout` | Invalidate token |
-| POST | `/api/refresh` | Refresh JWT token *(PERN only)* |
-| GET | `/api/me` | Get current user profile |
-| POST | `/api/forgot-password` | Request password reset *(PERN only)* |
-| POST | `/api/reset-password` | Reset password with token *(PERN only)* |
+
+| Method | Endpoint               | Description                             |
+| ------ | ---------------------- | --------------------------------------- |
+| POST   | `/api/register`        | Register new user                       |
+| POST   | `/api/login`           | Login & receive JWT                     |
+| POST   | `/api/logout`          | Invalidate token                        |
+| POST   | `/api/refresh`         | Refresh JWT token _(PERN only)_         |
+| GET    | `/api/me`              | Get current user profile                |
+| POST   | `/api/forgot-password` | Request password reset _(PERN only)_    |
+| POST   | `/api/reset-password`  | Reset password with token _(PERN only)_ |
 
 ### Tasks
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/tasks` | List tasks (paginated, filterable) |
-| POST | `/api/tasks` | Create new task |
-| GET | `/api/tasks/{id}` | Get single task |
-| PUT | `/api/tasks/{id}` | Update task |
-| DELETE | `/api/tasks/{id}` | Delete task |
-| GET | `/api/tasks/stats` | Dashboard statistics |
 
-### Audit Logs *(PERN only)*
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/audit-logs` | List audit logs |
-| GET | `/api/audit-logs/actions` | Get available audit actions |
+| Method | Endpoint           | Description                        |
+| ------ | ------------------ | ---------------------------------- |
+| GET    | `/api/tasks`       | List tasks (paginated, filterable) |
+| POST   | `/api/tasks`       | Create new task                    |
+| GET    | `/api/tasks/{id}`  | Get single task                    |
+| PUT    | `/api/tasks/{id}`  | Update task                        |
+| DELETE | `/api/tasks/{id}`  | Delete task                        |
+| GET    | `/api/tasks/stats` | Dashboard statistics               |
+
+### Audit Logs _(PERN only)_
+
+| Method | Endpoint                  | Description                 |
+| ------ | ------------------------- | --------------------------- |
+| GET    | `/api/audit-logs`         | List audit logs             |
+| GET    | `/api/audit-logs/actions` | Get available audit actions |
 
 > **Postman Collection:** Both folders include `GOQii Task Manager - Laravel 12 JWT API.postman_collection.json` for testing.
 
@@ -468,6 +432,7 @@ Both projects expose identical REST API endpoints:
 ## 🗄️ Database Schema
 
 ### Users Table
+
 ```sql
 - id (PK)
 - name
@@ -480,6 +445,7 @@ Both projects expose identical REST API endpoints:
 ```
 
 ### Tasks Table
+
 ```sql
 - id (PK)
 - user_id (FK, indexed)
@@ -492,7 +458,8 @@ Both projects expose identical REST API endpoints:
 - Composite index: (user_id, status)
 ```
 
-### Audit Logs Table *(PERN only)*
+### Audit Logs Table _(PERN only)_
+
 ```sql
 - id (PK)
 - user_id (FK)
@@ -504,7 +471,8 @@ Both projects expose identical REST API endpoints:
 - created_at / updated_at
 ```
 
-### Password Reset Tokens Table *(PERN only)*
+### Password Reset Tokens Table _(PERN only)_
+
 ```sql
 - email (indexed)
 - token (hashed)
@@ -581,6 +549,7 @@ GoqiiTaskManager/
 ## 👤 Author
 
 **Abul Qasim**
+
 - GitHub: [@AbulQasim123](https://github.com/AbulQasim123)
 - Project: [GoqiiTaskManager](https://github.com/AbulQasim123/GoqiiTaskManager)
 
