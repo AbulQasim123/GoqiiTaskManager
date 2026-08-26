@@ -103,12 +103,6 @@ const Login = () => {
                     <Link to="/register" className="text-decoration-none">Register</Link>
                 </div>
 
-                <div className="mt-3 p-2 bg-light rounded text-center">
-                    <small className="text-muted">
-                        <strong>Demo:</strong> admin@goqii.com / password123<br />
-                        user@goqii.com / password123
-                    </small>
-                </div>
             </div>
         </div>
     );
