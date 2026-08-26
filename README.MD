@@ -4,19 +4,19 @@
 
 ---
 
-## 📋 Assessment Completion Status
+## Assessment Completion Status
 
 Based on the [GOQii Practical Assessment PDF](https://github.com/AbulQasim123/GoqiiTaskManager), here is the task-by-task breakdown:
 
 | Task       | Title                                | Status                                   | Notes                                                                                                     |
 | ---------- | ------------------------------------ | ---------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| **Task 1** | Full-Stack CRUD App: Task Manager    | ✅ **Complete**                          | PHP REST API + React frontend. Full CRUD with filtering, pagination, validation                           |
-| **Task 2** | Authentication & Authorization       | ✅ **Complete**                          | JWT auth, role-based access (Admin/User), protected routes, logout, token expiry                          |
-| **Task 3** | Database Design & Query Optimization | ✅ **Complete**                          | Optimized schema with indexes, relationships, constraints. Queries with indexing justification            |
-| **Task 4** | Containerization with Docker         | ⚠️ **Knowledgeable but not implemented** | See [Docker Section](#-task-4--docker-containerization) below                                             |
-| **Task 5** | Node.js / PostgreSQL Variant         | ✅ **Complete**                          | Full PERN stack re-implementation as bonus — see [PERN Folder](#-project-1-pern-stack)                    |
-| **Task 6** | Cloud Deployment (AWS/GCP)           | ⚠️ **Knowledgeable but not deployed**    | See [Cloud Section](#-task-6--cloud-deployment) below                                                     |
-| **Task 7** | AI Agent Feature (Claude/Gemini)     | ❌ **Not Attempted**                     | I have alrady integrate openAI in my previous organization, currently I don't have any AI api credential. |
+| **Task 1** | Full-Stack CRUD App: Task Manager    |  **Complete**                          | PHP REST API + React frontend. Full CRUD with filtering, pagination, validation                           |
+| **Task 2** | Authentication & Authorization       |  **Complete**                          | JWT auth, role-based access (Admin/User), protected routes, logout, token expiry                          |
+| **Task 3** | Database Design & Query Optimization |  **Complete**                          | Optimized schema with indexes, relationships, constraints. Queries with indexing justification            |
+| **Task 4** | Containerization with Docker         |  **Knowledgeable but not implemented** | See [Docker Section](#-task-4--docker-containerization) below                                             |
+| **Task 5** | Node.js / PostgreSQL Variant         |  **Complete**                          | Full PERN stack re-implementation as bonus — see [PERN Folder](#-project-1-pern-stack)                    |
+| **Task 6** | Cloud Deployment (AWS/GCP)           |  **Knowledgeable but not deployed**    | See [Cloud Section](#-task-6--cloud-deployment) below                                                     |
+| **Task 7** | AI Agent Feature (Claude/Gemini)     |  **Not Attempted**                     | I have alrady integrate openAI in my previous organization, currently I don't have any AI api credential. |
 
 ---
 
@@ -59,15 +59,15 @@ Based on the [GOQii Practical Assessment PDF](https://github.com/AbulQasim123/Go
 
 ### Key Features
 
-- ✅ **JWT Authentication** — Access token (60 min) + Refresh token (14 days)
-- ✅ **Role-Based Access Control** — Admin vs User permissions
-- ✅ **Task CRUD** — Create, Read, Update, Delete with pagination & filtering
-- ✅ **Audit Logging** — Tracks every significant action (login, CRUD, password reset) with IP address
-- ✅ **Password Reset Flow** — Secure token generation → EJS email template → Nodemailer → 60 min expiry
-- ✅ **Dashboard Statistics** — Task metrics and analytics
-- ✅ **Responsive Sidebar Layout** — Bootstrap 5 admin panel design
-- ✅ **Rate Limiting** — 100 requests per 15 minutes window
-- ✅ **Security Headers** — Helmet protection
+- ✓ **JWT Authentication** — Access token (60 min) + Refresh token (14 days)
+- ✓ **Role-Based Access Control** — Admin vs User permissions
+- ✓ **Task CRUD** — Create, Read, Update, Delete with pagination & filtering
+- ✓ **Audit Logging** — Tracks every significant action (login, CRUD, password reset) with IP address
+- ✓ **Password Reset Flow** — Secure token generation → EJS email template → Nodemailer → 60 min expiry
+- ✓ **Dashboard Statistics** — Task metrics and analytics
+- ✓ **Responsive Sidebar Layout** — Bootstrap 5 admin panel design
+- ✓ **Rate Limiting** — 100 requests per 15 minutes window
+- ✓ **Security Headers** — Helmet protection
 
 ### Project Structure (PERN)
 
@@ -100,7 +100,7 @@ PERN/
 └── GOQii Task Manager - Laravel 12 JWT API.postman_collection.json
 ```
 
-## Setup & Testing Notes
+# ⚠️ Setup & Testing Notes
 
 For easier setup and testing, I have included the required `.env` configuration and the Postman collection with pre-written scripts.
 
@@ -132,7 +132,7 @@ npm run dev          # Runs on http://localhost:5173
 
 ---
 
-## 🔶 Project 2: PHPWithReact — Laravel 12 + MySQL
+## Project 2: PHPWithReact — Laravel 12 + MySQL
 
 > **Corresponds to Tasks 1–3 (Core):** Primary implementation using PHP/Laravel + MySQL as required by the job description.
 
@@ -163,14 +163,14 @@ npm run dev          # Runs on http://localhost:5173
 
 ### Key Features
 
-- ✅ **JWT Authentication** — Token-based auth with Laravel JWT package
-- ✅ **Role-Based Access Control** — Admin vs User via custom `CheckRole` middleware
-- ✅ **Task CRUD** — Full Create, Read, Update, Delete with pagination & status filtering
-- ✅ **Dashboard Statistics** — Task analytics endpoint (`/api/tasks/stats`)
-- ✅ **Optimized Database** — Indexed migrations (`user_id+status`, `due_date`, `priority`)
-- ✅ **Responsive Sidebar Layout** — Bootstrap 5 admin panel
-- ✅ **CORS Handling** — Properly configured for React frontend communication
-- ✅ **Database Seeding** — Pre-populated admin & user accounts
+- ✓ **JWT Authentication** — Token-based auth with Laravel JWT package
+- ✓ **Role-Based Access Control** — Admin vs User via custom `CheckRole` middleware
+- ✓ **Task CRUD** — Full Create, Read, Update, Delete with pagination & status filtering
+- ✓ **Dashboard Statistics** — Task analytics endpoint (`/api/tasks/stats`)
+- ✓ **Optimized Database** — Indexed migrations (`user_id+status`, `due_date`, `priority`)
+- ✓ **Responsive Sidebar Layout** — Bootstrap 5 admin panel
+- ✓ **CORS Handling** — Properly configured for React frontend communication
+- ✓ **Database Seeding** — Pre-populated admin & user accounts
 
 ### Project Structure (PHPWithReact)
 
@@ -252,13 +252,13 @@ npm run dev          # Runs on http://localhost:5173
 | **Admin Powers**       | All tasks, audit logs, stats                              | All tasks, stats                                 |
 | **User Powers**        | Own tasks only                                            | Own tasks only                                   |
 | **Database Indexes**   | `role`, `email`, `user_id+status`, `due_date`, `priority` | `role`, `user_id+status`, `due_date`, `priority` |
-| **Postman Collection** | ✅ Included                                               | ✅ Included                                      |
+| **Postman Collection** | ✓ Included                                               | ✓ Included                                      |
 | **Frontend Stack**     | React + Vite + Bootstrap 5                                | React + Vite + Bootstrap 5                       |
 | **API Pattern**        | RESTful JSON                                              | RESTful JSON                                     |
 
 ---
 
-## 📦 Task 4 — Docker Containerization
+## Task 4 — Docker Containerization
 
 > **Status:** ⚠️ Knowledgeable but not implemented due to system constraints.
 
@@ -324,7 +324,7 @@ volumes:
 
 ---
 
-## ☁️ Task 6 — Cloud Deployment
+## Task 6 — Cloud Deployment
 
 > **Status:** ⚠️ Knowledgeable but not deployed due to free-tier policy changes.
 
@@ -391,7 +391,7 @@ npm install && npm run dev
 
 ---
 
-## 📡 API Documentation
+## API Documentation
 
 Both projects expose identical REST API endpoints:
 
@@ -481,7 +481,7 @@ Both projects expose identical REST API endpoints:
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 GoqiiTaskManager/
@@ -555,10 +555,10 @@ GoqiiTaskManager/
 
 ---
 
-## 📝 License
+##  License
 
 This project was built for **GOQii Practical Assessment** purposes.
 
 ---
 
-> **Pro Tip for Interviewers:** Both implementations share the same React frontend architecture, demonstrating the ability to swap backend technologies without affecting the client-side codebase — a key skill in modern full-stack development.
+> **Pro Tip for Interviewers/Checker:** Both implementations share the same React frontend architecture, demonstrating the ability to swap backend technologies without affecting the client-side codebase — a key skill in modern full-stack development.
