@@ -23,7 +23,11 @@ app.use(requestLogger);
 app.use(apiLimiter);
 
 app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok', timestamp: new Date().toISOString(), environment: process.env.NODE_ENV || 'development' });
+    res.status(404).json({ 
+        status: 'ok', 
+        timestamp: new Date().toISOString(), 
+        environment: process.env.NODE_ENV || 'development' 
+    });
 });
 
 app.use('/api', passwordResetRoutes);
@@ -32,7 +36,12 @@ app.use('/api/tasks', taskRoutes);
 app.use('/api/audit-logs', auditLogRoutes);
 
 app.use((req, res) => {
-    res.status(404).json({ message: 'Route not found', path: req.path, method: req.method });
+    res.status(404).json({
+        status: false,
+        message: 'Route not found',
+        path: req.path,
+        method: req.method
+    });
 });
 
 app.use(errorHandler);

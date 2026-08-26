@@ -25,6 +25,17 @@ const register = asyncHandler(async (req, res) => {
             role: role === 'admin' ? 'admin' : 'user',
         });
 
+        // Audit log only after successful login
+
+        await logAudit({
+            userId: user.id,
+            action: 'login',
+            entityType: 'User',
+            entityId: user.id,
+            description: 'Admin logged in',
+            ipAddress: req.ip,
+        });
+
         const token = generateToken(user.id);
         return authResponse(res, token, user);
     } catch (err) {
@@ -67,36 +78,36 @@ const login = asyncHandler(async (req, res) => {
     }
 
     // Audit log only after successful login
-    if (user.isAdmin()) {
-        await logAudit({
-            userId: user.id,
-            action: 'login',
-            entityType: 'User',
-            entityId: user.id,
-            description: 'Admin logged in',
-            ipAddress: req.ip,
-        });
-    }
+
+    await logAudit({
+        userId: user.id,
+        action: 'login',
+        entityType: 'User',
+        entityId: user.id,
+        description: 'Admin logged in',
+        ipAddress: req.ip,
+    });
 
     const token = generateToken(user.id);
 
     return authResponse(res, token, user);
 });
+
 const me = asyncHandler(async (req, res) => {
     res.json(req.user);
 });
 
 const logout = asyncHandler(async (req, res) => {
-    if (req.user.isAdmin()) {
-        await logAudit({
-            userId: req.user.id,
-            action: 'logout',
-            entityType: 'User',
-            entityId: req.user.id,
-            description: 'Admin logged out',
-            ipAddress: req.ip,
-        });
-    }
+    // if (req.user.isAdmin()) {
+    await logAudit({
+        userId: req.user.id,
+        action: 'logout',
+        entityType: 'User',
+        entityId: req.user.id,
+        description: 'Admin logged out',
+        ipAddress: req.ip,
+    });
+    // }
     res.json({ message: 'Successfully logged out' });
 });
 

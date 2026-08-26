@@ -94,8 +94,6 @@ const update = asyncHandler(async (req, res) => {
     if (!task) throw ApiError.notFound('Task not found');
     if (!user.isAdmin() && task.user_id !== user.id) throw ApiError.forbidden('Forbidden');
 
-    const oldValues = { ...task.toJSON() };
-
     await task.update({
         ...(req.body.title !== undefined && { title: req.body.title.trim() }),
         ...(req.body.description !== undefined && { description: req.body.description || null }),
@@ -115,8 +113,6 @@ const update = asyncHandler(async (req, res) => {
             entityType: 'Task',
             entityId: task.id,
             description: `Admin updated task: ${task.title}`,
-            oldValues,
-            newValues: task.toJSON(),
             ipAddress: req.ip,
         });
     }
@@ -143,7 +139,6 @@ const destroy = asyncHandler(async (req, res) => {
             entityType: 'Task',
             entityId: id,
             description: `Admin deleted task: ${oldValues.title}`,
-            oldValues,
             ipAddress: req.ip,
         });
     }
