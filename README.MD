@@ -1,42 +1,28 @@
-# GOQii Task Manager
+# GOQii Task Manager — Practical Assessment
 
-> **Full-Stack Task Management Application** — Built as a practical assessment for GOQii. This repository contains **two independent implementations** of the same Task Manager system, demonstrating proficiency across multiple backend technologies while maintaining a consistent React frontend.
-
----
-
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Project 1: PERN Stack](#-project-1-pern-stack--nodejs--express--postgresql)
-- [Project 2: PHP with React](#-project-2-phpwithreact--laravel-12--mysql)
-- [Common Features](#-common-features-across-both-projects)
-- [Interview Talking Points](#-interview-talking-points)
-- [Getting Started](#-getting-started)
-- [API Documentation](#-api-documentation)
-- [Database Schema](#-database-schema)
-- [Project Structure](#-project-structure)
-- [Author](#-author)
+> **Full-Stack Task Management Application** — Built as a practical assessment for the **PHP/MySQL/React Developer** role at GOQii. This repository contains **two independent implementations** of the same Task Manager system, covering all mandatory tasks and selected bonus tasks from the assessment.
 
 ---
 
-## Overview
+## 📋 Assessment Completion Status
 
-This monorepo showcases a **Task Management System** with **Role-Based Access Control (RBAC)** implemented using two different backend architectures:
+Based on the [GOQii Practical Assessment PDF](https://github.com/AbulQasim123/GoqiiTaskManager), here is the task-by-task breakdown:
 
-| Aspect | PERN Stack | PHPWithReact (Laravel) |
-|--------|-----------|------------------------|
-| **Backend** | Node.js + Express | Laravel 12 (PHP) |
-| **Database** | PostgreSQL | MySQL |
-| **ORM** | Sequelize | Eloquent (Laravel ORM) |
-| **Auth** | JWT (jsonwebtoken) | JWT (php-open-source-saver/jwt-auth) |
-| **Frontend** | React 18 + Vite + Bootstrap 5 | React 18 + Vite + Bootstrap 5 |
-| **Extra Features** | Audit Logging, Password Reset, Email Notifications | Dashboard Stats, CORS Middleware |
-
-> **Why two implementations?** To demonstrate backend versatility — the ability to architect the same system using both **JavaScript/Node.js** and **PHP/Laravel** ecosystems, with identical frontend consumption patterns.
+| Task | Title | Status | Notes |
+|------|-------|--------|-------|
+| **Task 1** | Full-Stack CRUD App: Task Manager | ✅ **Complete** | PHP REST API + React frontend. Full CRUD with filtering, pagination, validation |
+| **Task 2** | Authentication & Authorization | ✅ **Complete** | JWT auth, role-based access (Admin/User), protected routes, logout, token expiry |
+| **Task 3** | Database Design & Query Optimization | ✅ **Complete** | Optimized schema with indexes, relationships, constraints. Queries with indexing justification |
+| **Task 4** | Containerization with Docker | ⚠️ **Knowledgeable but not implemented** | See [Docker Section](#-task-4--docker-containerization) below |
+| **Task 5** | Node.js / PostgreSQL Variant | ✅ **Complete** | Full PERN stack re-implementation as bonus — see [PERN Folder](#-project-1-pern-stack) |
+| **Task 6** | Cloud Deployment (AWS/GCP) | ⚠️ **Knowledgeable but not deployed** | See [Cloud Section](#-task-6--cloud-deployment) below |
+| **Task 7** | AI Agent Feature (Claude/Gemini) | ❌ **Not Attempted** | Out of scope for this assessment |
 
 ---
 
 ## 🔷 Project 1: PERN Stack — Node.js + Express + PostgreSQL
+
+> **Corresponds to Task 5 (Bonus):** Re-implemented the full backend using Node.js/Express + PostgreSQL to demonstrate cross-stack proficiency.
 
 ### Tech Stack
 
@@ -138,6 +124,8 @@ npm run dev          # Runs on http://localhost:5173
 ---
 
 ## 🔶 Project 2: PHPWithReact — Laravel 12 + MySQL
+
+> **Corresponds to Tasks 1–3 (Core):** Primary implementation using PHP/Laravel + MySQL as required by the job description.
 
 ### Tech Stack
 
@@ -255,6 +243,120 @@ npm run dev          # Runs on http://localhost:5173
 | **Postman Collection** | ✅ Included | ✅ Included |
 | **Frontend Stack** | React + Vite + Bootstrap 5 | React + Vite + Bootstrap 5 |
 | **API Pattern** | RESTful JSON | RESTful JSON |
+
+---
+
+## 📦 Task 4 — Docker Containerization
+
+> **Status:** ⚠️ Knowledgeable but not implemented due to system constraints.
+
+### What I Know About Docker
+
+I am fully familiar with Docker containerization concepts and have practical knowledge of:
+
+- **Writing Dockerfiles** for both PHP (Apache/Nginx + PHP-FPM) and Node.js applications
+- **Docker Compose** (`docker-compose.yml`) to orchestrate multi-container setups:
+  - PHP/Laravel backend container
+  - React frontend container (Nginx or Node dev server)
+  - MySQL/PostgreSQL database container
+  - Optional: phpMyAdmin or Adminer for DB management
+- **Environment variable management** via `.env` files — no hardcoded secrets in images
+- **Volume mounting** for persistent database storage and live code reloading
+- **Network configuration** for inter-container communication
+- **Health checks** and restart policies
+
+### Why It Was Not Implemented
+
+Due to **limited disk space** on my development machine, I was unable to install and run Docker Desktop (which requires ~10GB+ of space for the VM and image layers). The system constraints prevented me from building and testing Docker images locally.
+
+### What the Docker Setup Would Look Like
+
+```yaml
+# docker-compose.yml (conceptual)
+version: '3.8'
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    env_file: .env
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    env_file: .env
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+volumes:
+  db_data:
+```
+
+> **Note:** If system resources allow in the future, I can implement and test this setup within a few hours.
+
+---
+
+## ☁️ Task 6 — Cloud Deployment
+
+> **Status:** ⚠️ Knowledgeable but not deployed due to free-tier policy changes.
+
+### What I Know About Cloud Deployment
+
+I have theoretical knowledge and have studied deployment strategies for both **AWS** and **GCP**:
+
+#### AWS Deployment Knowledge
+- **EC2** — Launch Linux instances, configure security groups, install LAMP/LEMP stack
+- **RDS** — Managed MySQL/PostgreSQL with automated backups
+- **S3** — Static asset storage for React build files
+- **Route 53** — Domain management and DNS routing
+- **Elastic Beanstalk** — Platform-as-a-Service for PHP/Node.js apps
+- **CodePipeline / GitHub Actions** — CI/CD automation
+
+#### GCP Deployment Knowledge
+- **Compute Engine** — VM instances for backend hosting
+- **Cloud SQL** — Managed MySQL/PostgreSQL
+- **Cloud Storage** — Static file hosting
+- **Cloud Run** — Serverless container deployment
+- **Cloud Build** — CI/CD pipeline
+
+### Why It Was Not Deployed
+
+Both **AWS** and **GCP** have recently changed their free-tier policies and verification requirements. New account creation and free-tier activation have become restricted in certain regions, requiring credit card verification with charges that are no longer fully waived. Due to these policy changes, I was unable to create and utilize free-tier accounts for deployment.
+
+### Deployment Architecture (Conceptual)
+
+```
+┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│   React App     │────▶│  AWS S3 /       │     │  CloudFront     │
+│   (Build)       │     │  GCP Cloud      │────▶│  CDN            │
+└─────────────────┘     │  Storage        │     └─────────────────┘
+                        └─────────────────┘
+                                │
+                                ▼
+┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│   API Requests  │────▶│  EC2 / Compute  │────▶│  RDS / Cloud    │
+│   (Axios)       │     │  Engine         │     │  SQL            │
+└─────────────────┘     │  (PHP/Node)     │     │  (MySQL/Postgre)│
+                        └─────────────────┘     └─────────────────┘
+```
+
+> **Note:** Given access to an active cloud account, I can deploy this application within a day using the above architecture.
 
 ---
 
