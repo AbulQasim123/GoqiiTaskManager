@@ -1,6 +1,7 @@
 # Ignore node_modules in all projects
 **/node_modules/
 **/vendor/
+**/.env/
 
 # Optional: Other common ignores
 .DS_Store

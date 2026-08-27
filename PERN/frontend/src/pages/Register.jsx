@@ -2,18 +2,10 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import { useToast } from '../context/ToastContext';
 import { useAuth } from '../context/AuthContext';
-
-const schema = yup.object({
-    name: yup.string().min(2, 'Name must be at least 2 characters').required('Name is required'),
-    email: yup.string().email('Invalid email format').required('Email is required'),
-    password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
-    password_confirmation: yup.string()
-        .oneOf([yup.ref('password'), null], 'Passwords must match')
-        .required('Confirm password is required'),
-}).required();
+import { registerSchema } from '../validations/registerValidation';
+import PasswordInput from '../components/PasswordInput';
 
 const Register = () => {
     const [generalError, setGeneralError] = useState('');
@@ -27,7 +19,7 @@ const Register = () => {
         handleSubmit,
         formState: { errors },
     } = useForm({
-        resolver: yupResolver(schema),
+        resolver: yupResolver(registerSchema),
     });
 
     const onSubmit = async (data) => {
@@ -35,7 +27,7 @@ const Register = () => {
         setGeneralError('');
         try {
             await registerUser(data);
-            showToast('Register successfully','success');
+            showToast('Register successfully', 'success');
             navigate('/dashboard');
         } catch (err) {
             const data = err.response?.data;
@@ -92,31 +84,21 @@ const Register = () => {
                         )}
                     </div>
 
-                    <div className="mb-3">
-                        <label className="form-label">Password</label>
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            className={`form-control ${errors.password ? 'is-invalid' : ''}`}
-                            {...register('password')}
-                        />
-                        {errors.password && (
-                            <div className="text-danger small mt-1">{errors.password.message}</div>
-                        )}
-                    </div>
+                    <PasswordInput
+                        label="Password"
+                        placeholder="Password"
+                        registration={register('password')}
+                        error={errors.password}
+                        className="mb-3"
+                    />
 
-                    <div className="mb-4">
-                        <label className="form-label">Confirm Password</label>
-                        <input
-                            type="password"
-                            placeholder="Confirm Password"
-                            className={`form-control ${errors.password_confirmation ? 'is-invalid' : ''}`}
-                            {...register('password_confirmation')}
-                        />
-                        {errors.password_confirmation && (
-                            <div className="text-danger small mt-1">{errors.password_confirmation.message}</div>
-                        )}
-                    </div>
+                    <PasswordInput
+                        label="Confirm Password"
+                        placeholder="Confirm Password"
+                        registration={register('password_confirmation')}
+                        error={errors.password_confirmation}
+                        className="mb-4"
+                    />
 
                     <button type="submit" className="btn btn-primary w-100 btn-lg" disabled={loading}>
                         {loading ? 'Creating...' : 'Register'}

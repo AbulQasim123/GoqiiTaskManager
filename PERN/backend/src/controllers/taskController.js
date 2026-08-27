@@ -49,17 +49,15 @@ const store = asyncHandler(async (req, res) => {
         include: [{ model: User, as: 'user', attributes: ['id', 'name', 'email', 'role'] }],
     });
 
-    if (user.isAdmin()) {
-        await logAudit({
-            userId: user.id,
-            action: 'create',
-            entityType: 'Task',
-            entityId: task.id,
-            description: `Admin created task: ${task.title}`,
-            newValues: task.toJSON(),
-            ipAddress: req.ip,
-        });
-    }
+    await logAudit({
+        userId: user.id,
+        action: 'create',
+        entityType: 'Task',
+        entityId: task.id,
+        description: `Admin created task: ${task.title}`,
+        newValues: task.toJSON(),
+        ipAddress: req.ip,
+    });
 
     res.status(201).json(task);
 });
@@ -106,16 +104,14 @@ const update = asyncHandler(async (req, res) => {
         include: [{ model: User, as: 'user', attributes: ['id', 'name', 'email', 'role'] }],
     });
 
-    if (user.isAdmin()) {
-        await logAudit({
-            userId: user.id,
-            action: 'update',
-            entityType: 'Task',
-            entityId: task.id,
-            description: `Admin updated task: ${task.title}`,
-            ipAddress: req.ip,
-        });
-    }
+    await logAudit({
+        userId: user.id,
+        action: 'update',
+        entityType: 'Task',
+        entityId: task.id,
+        description: `Admin updated task: ${task.title}`,
+        ipAddress: req.ip,
+    });
 
     res.json(task);
 });
@@ -132,16 +128,14 @@ const destroy = asyncHandler(async (req, res) => {
 
     await task.destroy();
 
-    if (user.isAdmin()) {
-        await logAudit({
-            userId: user.id,
-            action: 'delete',
-            entityType: 'Task',
-            entityId: id,
-            description: `Admin deleted task: ${oldValues.title}`,
-            ipAddress: req.ip,
-        });
-    }
+    await logAudit({
+        userId: user.id,
+        action: 'delete',
+        entityType: 'Task',
+        entityId: id,
+        description: `Admin deleted task: ${oldValues.title}`,
+        ipAddress: req.ip,
+    });
 
     res.json({ message: 'Task deleted successfully' });
 });

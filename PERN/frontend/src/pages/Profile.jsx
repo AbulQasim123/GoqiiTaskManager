@@ -1,36 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import api from '../services/api';
 import { useToast } from '../context/ToastContext';
 import { useAuth } from '../context/AuthContext';
-
-const schema = yup.object({
-    name: yup
-        .string()
-        .min(3, 'Name must be at least 3 characters')
-        .max(255, 'Name is too long')
-        .required('Name is required'),
-
-    email: yup
-        .string()
-        .email('Invalid email')
-        .required('Email is required'),
-
-    password: yup
-        .string()
-        .transform((value) => (value === '' ? null : value))
-        .nullable()
-        .min(6, 'Password must be at least 6 characters'),
-
-    password_confirmation: yup
-        .string()
-        .transform((value) => (value === '' ? null : value))
-        .nullable()
-        .oneOf([yup.ref('password')], 'Passwords must match'),
-}).required();
-
+import { profileSchema } from '../validations/profileValidation'
+import PasswordInput from '../components/PasswordInput';
 
 const Profile = () => {
     const { showToast } = useToast();
@@ -45,7 +20,7 @@ const Profile = () => {
         reset,
         formState: { errors },
     } = useForm({
-        resolver: yupResolver(schema),
+        resolver: yupResolver(profileSchema),
         defaultValues: {
             name: '',
             email: '',
@@ -214,54 +189,21 @@ const Profile = () => {
                                     Change Password
                                 </h6>
 
-                                <div className="mb-3">
-                                    <label className="form-label">
-                                        New Password
-                                    </label>
+                                <PasswordInput
+                                    label="New Password"
+                                    placeholder="Leave blank to keep current password"
+                                    registration={register('password')}
+                                    error={errors.password}
+                                    className="mb-3"
+                                />
 
-                                    <input
-                                        type="password"
-                                        placeholder="Leave blank to keep current password"
-                                        className={`form-control ${errors.password
-                                            ? 'is-invalid'
-                                            : ''
-                                            }`}
-                                        {...register('password')}
-                                    />
-
-                                    {errors.password && (
-                                        <div className="invalid-feedback">
-                                            {errors.password.message}
-                                        </div>
-                                    )}
-                                </div>
-
-                                <div className="mb-4">
-                                    <label className="form-label">
-                                        Confirm New Password
-                                    </label>
-
-                                    <input
-                                        type="password"
-                                        className={`form-control ${errors.password_confirmation
-                                            ? 'is-invalid'
-                                            : ''
-                                            }`}
-                                        {...register(
-                                            'password_confirmation'
-                                        )}
-                                    />
-
-                                    {errors.password_confirmation && (
-                                        <div className="invalid-feedback">
-                                            {
-                                                errors
-                                                    .password_confirmation
-                                                    .message
-                                            }
-                                        </div>
-                                    )}
-                                </div>
+                                <PasswordInput
+                                    label="Confirm New Password"
+                                    placeholder="Confirm new password"
+                                    registration={register('password_confirmation')}
+                                    error={errors.password_confirmation}
+                                    className="mb-4"
+                                />
 
                                 <button
                                     type="submit"

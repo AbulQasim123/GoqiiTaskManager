@@ -18,7 +18,7 @@ const Sidebar = ({ isOpen }) => {
                     GOQii
                 </h4>
 
-                <small className="text-muted">Task Management System</small>
+                <small className="text-black">Task Management System</small>
             </div>
 
             <nav className="nav flex-column py-3">
