@@ -2,32 +2,47 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-const Navbar = ({ toggleSidebar }) => {
+const Navbar = ({ toggleSidebar, sidebarOpen }) => {
     const { user, logout, isAdmin } = useAuth();
     const navigate = useNavigate();
 
     return (
         <div className="navbar-top d-flex justify-content-between align-items-center">
+
             <div className="d-flex align-items-center">
+
+                {/* Sidebar Toggle Button On Mobile Device */}
                 <button
+                    type="button"
                     className="btn btn-sm btn-outline-secondary d-md-none me-3"
                     onClick={toggleSidebar}
+                    aria-label={sidebarOpen ? 'Close sidebar' : 'Open sidebar'}
                 >
-                    <i className="bi bi-list"></i>
+                    <i
+                        className={`bi ${
+                            sidebarOpen ? 'bi-x-lg' : 'bi-list'
+                        }`}
+                    ></i>
                 </button>
 
                 <h5 className="mb-0 fw-bold text-primary">
                     GOQii Task Manager
                 </h5>
+
             </div>
 
             <div className="d-flex align-items-center gap-3">
+
+                {/* Role */}
                 <span className="badge bg-primary">
                     {isAdmin ? 'Admin' : 'User'}
                 </span>
 
+                {/* User Dropdown */}
                 <div className="dropdown">
+
                     <button
+                        type="button"
                         className="btn btn-light dropdown-toggle"
                         data-bs-toggle="dropdown"
                     >
@@ -36,6 +51,7 @@ const Navbar = ({ toggleSidebar }) => {
                     </button>
 
                     <ul className="dropdown-menu dropdown-menu-end">
+
                         <li>
                             <span className="dropdown-item-text text-muted">
                                 {user?.email}
@@ -48,6 +64,7 @@ const Navbar = ({ toggleSidebar }) => {
 
                         <li>
                             <button
+                                type="button"
                                 className="dropdown-item"
                                 onClick={() => navigate('/profile')}
                             >
@@ -62,6 +79,7 @@ const Navbar = ({ toggleSidebar }) => {
 
                         <li>
                             <button
+                                type="button"
                                 className="dropdown-item text-danger"
                                 onClick={logout}
                             >
@@ -69,8 +87,10 @@ const Navbar = ({ toggleSidebar }) => {
                                 Logout
                             </button>
                         </li>
+
                     </ul>
                 </div>
+
             </div>
         </div>
     );

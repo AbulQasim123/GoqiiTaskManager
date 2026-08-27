@@ -2,14 +2,10 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import { useToast } from '../context/ToastContext';
 import { useAuth } from '../context/AuthContext';
-
-const schema = yup.object({
-    email: yup.string().email('Invalid email format').required('Email is required'),
-    password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
-}).required();
+import { loginSchema } from '../validations/loginValidation';
+import PasswordInput from '../components/PasswordInput';
 
 const Login = () => {
     const [generalError, setGeneralError] = useState('');
@@ -23,7 +19,7 @@ const Login = () => {
         handleSubmit,
         formState: { errors },
     } = useForm({
-        resolver: yupResolver(schema),
+        resolver: yupResolver(loginSchema),
     });
 
     const onSubmit = async (data) => {
@@ -31,21 +27,15 @@ const Login = () => {
         setGeneralError('');
         try {
             await login(data.email, data.password);
-            showToast('Login Successfully','success');
+            showToast('Login Successfully', 'success');
             navigate('/dashboard');
         } catch (err) {
             if (err.response?.status === 401) {
                 showToast('Login Failed: Invalid credentials', 'error');
             } else if (err.response?.data?.errors) {
-                showToast(
-                    err.response?.data?.message || 'Validation failed',
-                    'error'
-                );
+                showToast(err.response?.data?.message || 'Validation failed', 'error');
             } else {
-                showToast(
-                    err.response?.data?.message || 'Login failed',
-                    'error'
-                );
+                showToast(err.response?.data?.message || 'Login failed', 'error');
             }
         } finally {
             setLoading(false);
@@ -76,18 +66,13 @@ const Login = () => {
                         )}
                     </div>
 
-                    <div className="mb-4">
-                        <label className="form-label">Password</label>
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            className={`form-control ${errors.password ? 'is-invalid' : ''}`}
-                            {...register('password')}
-                        />
-                        {errors.password && (
-                            <div className="text-danger small mt-1">{errors.password.message}</div>
-                        )}
-                    </div>
+                    <PasswordInput
+                        label="Password"
+                        placeholder="Password"
+                        registration={register('password')}
+                        error={errors.password}
+                        className="mb-4"
+                    />
 
                     <button type="submit" className="btn btn-primary w-100 btn-lg" disabled={loading}>
                         {loading ? 'Logging in...' : 'Login'}
@@ -102,6 +87,7 @@ const Login = () => {
                     <span className="text-muted">Don't have an account? </span>
                     <Link to="/register" className="text-decoration-none">Register</Link>
                 </div>
+
             </div>
         </div>
     );

@@ -2,16 +2,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import api from '../services/api';
 import { useToast } from '../context/ToastContext';
-
-const schema = yup.object({
-    email: yup
-        .string()
-        .email('Invalid email')
-        .required('Email is required'),
-}).required();
+import { forgotPasswordSchema } from '../validations/forgotPasswordValidation';
 
 const ForgotPassword = () => {
     const [success, setSuccess] = useState('');
@@ -26,7 +19,7 @@ const ForgotPassword = () => {
         reset,
         formState: { errors },
     } = useForm({
-        resolver: yupResolver(schema),
+        resolver: yupResolver(forgotPasswordSchema),
         defaultValues: {
             email: '',
         },

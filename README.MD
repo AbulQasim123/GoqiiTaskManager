@@ -249,10 +249,10 @@ npm run dev          # Runs on http://localhost:5173
 | **Authorization**      | Middleware-based role check                               | Laravel `CheckRole` middleware                   |
 | **Task Management**    | Full CRUD + pagination + filtering                        | Full CRUD + pagination + filtering               |
 | **Role System**        | `admin` / `user`                                          | `admin` / `user`                                 |
-| **Admin Powers**       | All tasks, audit logs, stats                              | All tasks, stats                                 |
+| **Admin Powers**       | All tasks, audit logs, stats                              | All tasks, audit logs, stats                     |
 | **User Powers**        | Own tasks only                                            | Own tasks only                                   |
 | **Database Indexes**   | `role`, `email`, `user_id+status`, `due_date`, `priority` | `role`, `user_id+status`, `due_date`, `priority` |
-| **Postman Collection** | ✓ Included                                               | ✓ Included                                      |
+| **Postman Collection** | ✓ Included                                                | ✓ Included                                       |
 | **Frontend Stack**     | React + Vite + Bootstrap 5                                | React + Vite + Bootstrap 5                       |
 | **API Pattern**        | RESTful JSON                                              | RESTful JSON                                     |
 

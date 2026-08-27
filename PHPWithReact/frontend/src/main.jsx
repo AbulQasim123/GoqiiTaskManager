@@ -5,10 +5,11 @@ import App from './App.jsx';
 import { ToastProvider } from './context/ToastContext.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
-    <React.StrictMode>
-        <ToastProvider>
-            <App />
-        </ToastProvider>
-    </React.StrictMode>
+    // <React.StrictMode>
+    <ToastProvider>
+        <App />
+    </ToastProvider>
+    // </React.StrictMode>
 );

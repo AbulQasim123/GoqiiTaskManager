@@ -2,16 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import { useToast } from '../context/ToastContext';
 import api from '../services/api';
+import { forgotPasswordSchema } from '../validations/forgotPasswordValidation';
+import PasswordInput from '../components/PasswordInput';
 
-const schema = yup.object({
-    password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
-    password_confirmation: yup.string()
-        .oneOf([yup.ref('password'), null], 'Passwords must match')
-        .required('Confirm password is required'),
-}).required();
 
 const ResetPassword = () => {
     const [searchParams] = useSearchParams();
@@ -36,7 +31,7 @@ const ResetPassword = () => {
         handleSubmit,
         formState: { errors },
     } = useForm({
-        resolver: yupResolver(schema),
+        resolver: yupResolver(forgotPasswordSchema),
     });
 
     const onSubmit = async (data) => {
@@ -54,7 +49,7 @@ const ResetPassword = () => {
                 password_confirmation: data.password_confirmation,
             });
             setSuccess('Password reset successfully! Redirecting to login...');
-            showToast('Password reset successfully','success');
+            showToast('Password reset successfully', 'success');
             setTimeout(() => navigate('/login'), 2000);
         } catch (err) {
             showToast(err.response?.data?.error || 'Failed to reset password', 'error');
@@ -75,35 +70,31 @@ const ResetPassword = () => {
                 {generalError && <div className="alert alert-danger">{generalError}</div>}
 
                 <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                    <div className="mb-3">
-                        <label className="form-label">New Password</label>
-                        <input
-                            type="password"
-                            placeholder="New Password"
-                            className={`form-control ${errors.password ? 'is-invalid' : ''}`}
-                            {...register('password')}
-                        />
-                        {errors.password && (
-                            <div className="text-danger small mt-1">{errors.password.message}</div>
-                        )}
-                    </div>
 
-                    <div className="mb-4">
-                        <label className="form-label">Confirm New Password</label>
-                        <input
-                            type="password"
-                            placeholder="Confirm New Password"
-                            className={`form-control form-control-lg ${errors.password_confirmation ? 'is-invalid' : ''}`}
-                            {...register('password_confirmation')}
-                        />
-                        {errors.password_confirmation && (
-                            <div className="text-danger small mt-1">{errors.password_confirmation.message}</div>
-                        )}
-                    </div>
+                    <PasswordInput
+                        label="New Password"
+                        placeholder="New Password"
+                        registration={register('password')}
+                        error={errors.password}
+                        className="mb-3"
+                    />
 
-                    <button type="submit" className="btn btn-primary w-100 btn-lg" disabled={loading || !token || !email}>
+                    <PasswordInput
+                        label="Confirm New Password"
+                        placeholder="Confirm New Password"
+                        registration={register('password_confirmation')}
+                        error={errors.password_confirmation}
+                        className="mb-4"
+                    />
+
+                    <button
+                        type="submit"
+                        className="btn btn-primary w-100 btn-lg"
+                        disabled={loading || !token || !email}
+                    >
                         {loading ? 'Resetting...' : 'Reset Password'}
                     </button>
+
                 </form>
 
                 <div className="text-center mt-4">
