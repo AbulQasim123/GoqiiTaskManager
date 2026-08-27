@@ -1,10 +1,19 @@
-# Ignore node_modules in all projects
-**/node_modules/
-**/vendor/
+# Environment files
+.env
+.env.*
+!.env.example
 
-# Optional: Other common ignores
-.DS_Store
-npm-debug.log*
+# Dependencies
+node_modules/
+vendor/
+
+# Logs
 logs/
+*.log
+
+# Build
 dist/
 coverage/
+
+# OS files
+.DS_Store
