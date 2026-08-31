@@ -7,9 +7,8 @@ use Illuminate\Http\Request;
 
 class AuditLogController extends Controller
 {
-    public function __construct(
-        private readonly AuditLogService $auditLogService
-    ) {
+    public function __construct(private readonly AuditLogService $auditLogService)
+    {
     }
 
     public function index(Request $request)
@@ -33,7 +32,7 @@ class AuditLogController extends Controller
                     'per_page',
                 ])
             ),
-        ],200);
+        ], 200);
     }
 
     public function actions()
@@ -48,6 +47,6 @@ class AuditLogController extends Controller
 
         return response()->json([
             'data' => $this->auditLogService->getActions(),
-        ],200);
+        ], 200);
     }
 }
