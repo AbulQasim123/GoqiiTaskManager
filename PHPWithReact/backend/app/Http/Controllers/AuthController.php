@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\{ RegisterRequest, LoginRequest };
+use App\Http\Requests\{RegisterRequest, LoginRequest};
 use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Resources\UserResource;
 use App\Services\AuthService;
 
 class AuthController extends Controller
 {
-    public function __construct(private readonly AuthService $authService)
-    {
-    }
+    public function __construct(private readonly AuthService $authService) {}
 
     // User registration
     public function register(RegisterRequest $request)

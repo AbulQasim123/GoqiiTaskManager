@@ -13,10 +13,7 @@ use App\Services\TaskService;
 
 class TaskController extends Controller
 {
-    public function __construct(private readonly TaskService $taskService)
-    {
-
-    }
+    public function __construct(private readonly TaskService $taskService) {}
 
     // Display tasks.
     public function index(TaskIndexRequest $request)

@@ -7,9 +7,13 @@ use Illuminate\Http\Request;
 
 class AuditLogController extends Controller
 {
+<<<<<<< HEAD
     public function __construct(private readonly AuditLogService $auditLogService)
     {
     }
+=======
+    public function __construct(private readonly AuditLogService $auditLogService) {}
+>>>>>>> 9bf5941 (unused namespace removed)
 
     public function index(Request $request)
     {

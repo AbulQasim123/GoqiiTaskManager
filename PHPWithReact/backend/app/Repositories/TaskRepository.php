@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Task;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class TaskRepository
 {

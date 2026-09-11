@@ -8,9 +8,13 @@ use App\Services\PasswordResetService;
 
 class PasswordResetController extends Controller
 {
+<<<<<<< HEAD
     public function __construct(private PasswordResetService $passwordResetService)
     {
     }
+=======
+    public function __construct(private PasswordResetService $passwordResetService) {}
+>>>>>>> 9bf5941 (unused namespace removed)
 
     public function forgot(ForgotPasswordRequest $request)
     {
