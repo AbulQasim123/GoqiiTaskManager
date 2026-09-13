@@ -10,8 +10,8 @@ const Sidebar = ({ isOpen }) => {
             <div className="p-4 border-bottom border-secondary">
                 <h4 className="mb-0 fw-bold d-flex align-items-center">
                     <img
-                        src="https://goqii.com/webApp/uswebsite2025/assets/images/GUS-logo.png"
-                        
+                        src="https://appcdn.goqii.com/storeimg/36455_1779860387.png"
+
                         className="me-2"
                         style={{ width: '40px', height: '40px', objectFit: 'contain' }}
                     />
@@ -44,7 +44,7 @@ const Sidebar = ({ isOpen }) => {
             </nav>
 
             <div className="mt-auto p-4 border-top border-secondary">
-                <small className="text-muted">Laravel 12 + React</small>
+                <small className="text-muted">PERN Stack</small>
             </div>
         </div>
     );

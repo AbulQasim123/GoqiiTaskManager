@@ -55,7 +55,8 @@ const Layout = ({ children }) => {
 function App() {
     return (
         <AuthProvider>
-            <BrowserRouter>
+            {/* <BrowserRouter> */}
+            <BrowserRouter basename="/taskmanager">
 
                 <Suspense fallback={<Loading />}>
 
